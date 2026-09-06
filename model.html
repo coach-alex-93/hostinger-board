@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game model · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="topbar no-print"><div class="topbar-in">
+  <a class="wordmark" href="hub.html" aria-label="Hub"><span class="initials">AE</span></a>
+  <nav class="nav"></nav><span class="meta" id="saveState"></span>
+</div></header>
+
+<main class="wrap">
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Game model</h1>
+    <button class="btn ghost sm" id="btnExport">Export the model</button>
+    <button class="btn ghost sm" id="btnImport">Import a model</button>
+    <button class="btn warn sm" id="btnReset">Reset to what shipped</button>
+    <button class="btn turf" id="btnAdd">New principle</button>
+  </div>
+
+  <p class="hint" style="max-width:72ch;margin-bottom:18px">
+    Everything that drives how the team plays. The planner, the periodization grid, KPIs, profiles and the
+    tactics board all read from here, so a change made once lands everywhere.
+  </p>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Identity and style of play</h2>
+      <p class="hint">How you want the team to be recognised, in your words.</p>
+    </div>
+    <div class="card-bd">
+      <label class="f"><span>Identity in a sentence</span>
+        <textarea id="gm_identity" rows="2" placeholder="Brave with the ball, relentless without it"></textarea></label>
+      <div class="grid g2" style="margin-top:12px" id="styleBox"></div>
+
+      <p class="subhd" style="margin-top:22px">What influences the model<small>from your game model document</small></p>
+      <div id="influences"></div>
+
+      <p class="subhd" style="margin-top:22px">Style of play in detail<small>one entry per idea, by moment</small></p>
+      <div class="btnrow no-print" style="margin-bottom:10px">
+        <select id="styleFilter" style="width:auto"></select>
+        <button class="btn ghost sm" id="btnAddStyle">+ Add an entry</button>
+      </div>
+      <div id="styleList"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Formations</h2>
+      <div class="btnrow" style="margin-left:auto">
+        <button class="btn ghost sm" id="btnAddForm">+ Add a formation</button>
+      </div>
+    </div>
+    <div class="card-bd"><div id="forms"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Principles of play</h2>
+      <p class="hint" id="modelMeta"></p>
+    </div>
+    <div class="card-bd"><div id="list"></div></div>
+  </section>
+
+  <section class="card" id="profiles">
+    <div class="card-hd">
+      <h2>Player profiles</h2>
+      <div class="btnrow" style="margin-left:auto">
+        <select id="pf_posSel" style="width:auto" aria-label="Position"></select>
+        <button class="btn ghost sm" id="pf_btnAddPos">New position</button>
+        <button class="btn ghost sm" id="pf_btnReset">Reset profiles</button>
+        <button class="btn ghost sm" id="pf_btnCsv">Export CSV</button>
+      </div>
+    </div>
+    <div class="card-bd">
+      <p class="hint" style="margin:0 0 12px" id="pf_posMeta"></p>
+      <h3 id="pf_posTitle" style="margin-bottom:12px"></h3>
+      <div id="pf_grid"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Targets on this position</h2>
+      <p class="hint">Responsibilities you have marked as something you are actively coaching.</p>
+    </div>
+    <div class="card-bd"><div id="pf_targets"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Players in this position</h2>
+      <p class="hint">From the roster, with their IDP focus.</p>
+    </div>
+    <div class="card-bd"><div id="pf_players"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>What the model feeds</h2>
+      <p class="hint">Each of these is written from the principles above.</p>
+    </div>
+    <div class="card-bd"><div class="hubgrid" id="feeds"></div></div>
+  </section>
+
+  <div class="modal no-print" id="formModal" hidden>
+    <div class="modal-panel">
+      <div class="modal-hd">
+        <h2 id="formTitle">Formation</h2>
+        <div class="btnrow">
+          <button class="btn ghost" id="formCancel">Cancel</button>
+          <button class="btn insert" id="formInsert">Save the drawing</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <aside class="rail" id="formRail"></aside>
+        <div class="stage"><canvas class="board" id="formBoard" width="620" height="600" aria-label="Formation board"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal no-print" id="shapeModal" hidden>
+    <div class="modal-panel">
+      <div class="modal-hd">
+        <h2 id="shapeTitle">Shape</h2>
+        <div class="btnrow">
+          <button class="btn ghost" id="shapeCancel">Cancel</button>
+          <button class="btn insert" id="shapeInsert">Save the shape</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <aside class="rail" id="shapeRail"></aside>
+        <div class="stage"><canvas class="board" id="shapeBoard" width="620" height="600" aria-label="Formation shape"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/board.js"></script>
+<script src="js/boardrail.js"></script>
+<script src="js/model.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/board.js"></script>
+<script src="js/boardrail.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/board.js"></script>
+<script src="js/boardrail.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/profiles.js"></script>
+<script src="js/model-page.js"></script>
+</body>
+</html>

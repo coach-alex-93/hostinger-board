@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lists · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav">
+      <a href="hub.html">Season</a>
+      <a href="periodization.html">Periodization</a>
+      <a href="planner.html">Session planner</a>
+      <a href="kpi.html">KPIs</a>
+      <a href="review.html">Review</a>
+      <a href="idp.html">IDP</a>
+      <a href="depth.html">Depth chart</a>
+      <a href="lists.html" aria-current="page">Lists</a>
+      <a href="plans.html">Plans</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap narrow">
+  <h1 style="margin-bottom:6px">Lists</h1>
+  <p class="hint" style="max-width:64ch;margin-bottom:20px">
+    Every dropdown in the app reads from here. Add your own wording, hide anything you do not use.
+    Shipped entries are hidden rather than deleted, so Reset always brings them back.
+  </p>
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <select id="listSel" style="width:auto" aria-label="List"></select>
+    <button class="btn ghost sm" id="btnExport">Export lists</button>
+    <button class="btn ghost sm" id="btnImport">Import lists</button>
+    <button class="btn warn sm" id="btnResetAll">Reset every list</button>
+  </div>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Game model file</h2>
+      <p class="hint">Principles, sub-principles, role profiles and the vocabulary around them, as one file.</p>
+    </div>
+    <div class="card-bd">
+      <div class="btnrow">
+        <button class="btn ghost sm" id="btnExportModel">Export my model</button>
+        <button class="btn ghost sm" id="btnImportModel">Import a model</button>
+      </div>
+      <p class="hint" style="margin-top:10px">
+        A model file carries no sessions, players, fixtures or observations. It is the framework only,
+        which is what makes it safe to hand to another coach.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Structured lists</h2>
+      <p class="hint">The vocabulary that is more than words: feedback scales with their questions, actions with their outcomes, game sizes with what they ask for.</p>
+    </div>
+    <div class="card-bd"><div id="objLists"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2 id="listTitle">List</h2>
+      <p class="hint" id="listMeta"></p>
+    </div>
+    <div class="card-bd">
+      <div class="btnrow" style="margin-bottom:14px">
+        <input type="text" id="newItem" placeholder="Add an entry" style="flex:1 1 260px">
+        <button class="btn turf" id="btnAdd">Add</button>
+        <button class="btn ghost sm" id="btnReset">Reset this list</button>
+      </div>
+      <div id="items"></div>
+    </div>
+  </section>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/lists-page.js"></script>
+</body>
+</html>

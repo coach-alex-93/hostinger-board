@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Periodization plan · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav">
+      <a href="hub.html">Season</a>
+      <a href="periodization.html" aria-current="page">Periodization</a>
+      <a href="planner.html">Session planner</a>
+      <a href="kpi.html">KPIs</a>
+      <a href="review.html">Review</a>
+      <a href="idp.html">IDP</a>
+      <a href="depth.html">Depth chart</a>
+      <a href="lists.html">Lists</a>
+      <a href="plans.html">Plans</a>
+    </nav>
+    <span class="meta">Fall 2026 · 3 Aug to 13 Dec</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Periodization plan</h1>
+    <select id="squadSel" style="width:auto" aria-label="Plan"></select>
+    <select id="blockSel" style="width:auto"></select>
+    <button class="btn ghost sm" id="btnCsv">Export CSV</button>
+    <button class="btn ghost sm" id="btnBackup">Back up everything</button>
+    <button class="btn ghost sm" id="btnRestore">Restore backup</button>
+    <button class="btn ghost sm" id="btnSeed">Build a seed file</button>
+    <button class="btn ghost sm" id="btnPrint">Print / PDF</button>
+  </div>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Block structure</h2>
+      <p class="hint">Boundaries follow Season Structure v3. Edits below are yours; the fixture list underneath is fixed.</p>
+    </div>
+    <div class="card-bd">
+      <div class="season-ribbon" id="blockRibbon"></div>
+      <div class="sr-axis" id="blockAxis"></div>
+      <div class="stats" style="margin-top:16px" id="stats"></div>
+    </div>
+  </section>
+
+  <section class="card no-print">
+    <div class="card-hd">
+      <h2>Start over</h2>
+      <p class="hint">Back up first. None of this can be undone.</p>
+    </div>
+    <div class="card-bd">
+      <p class="hint" id="clearCounts" style="margin:0 0 12px"></p>
+      <div class="btnrow">
+        <button class="btn ghost sm" id="btnClearRows">Clear row edits on this plan</button>
+        <button class="btn ghost sm" id="btnClearSessions">Delete sessions on this plan</button>
+        <button class="btn warn sm" id="btnClearPlan">Empty this plan completely</button>
+        <button class="btn warn sm" id="btnFactory">Reset everything</button>
+      </div>
+      <p class="hint" style="margin-top:12px">
+        <strong>Clear row edits</strong> returns the grid to the generated calendar: fixtures, GD numbers and default
+        load bands stay, your sequencing and notes go. <strong>Empty this plan</strong> does that and deletes its
+        sessions too, which is how you hand a populated plan on as a blank one.
+        <strong>Reset everything</strong> also removes any plans you built yourself.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Matchdays</h2>
+      <p class="hint">Who started, who came on, and what that means for the week after.</p>
+    </div>
+    <div class="card-bd"><div id="matchdays"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Minutes and the week ahead</h2>
+      <p class="hint">What each player got at the weekend, and what that asks of the training week.</p>
+    </div>
+    <div class="card-bd"><div id="minutes"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>How the session landed</h2>
+      <p class="hint">Asked of the players afterwards, in their words rather than out of ten, and anonymously.</p>
+    </div>
+    <div class="card-bd">
+      <div class="btnrow" style="margin-bottom:12px">
+        <select id="fbDate" style="width:auto;max-width:260px" aria-label="Training day"></select>
+
+      </div>
+      <div id="feedback"></div>
+      <div id="fbTrend" style="margin-top:18px"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Cycles</h2>
+      <p class="hint">What each block is for, and which players it is aimed at.</p>
+    </div>
+    <div class="card-bd"><div id="cycles"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Principle coverage</h2>
+      <p class="hint">Counted from sessions you have planned on this squad's calendar.</p>
+    </div>
+    <div class="card-bd"><div id="coverage"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2 id="tableTitle">Plan</h2>
+      <p class="hint">Every field here saves as you type. Training rows link straight into the planner.</p>
+    </div>
+    <div class="card-bd tbl-scroll" style="padding:0">
+      <table class="grid-t" id="planTable"></table>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/periodization.js"></script>
+</body>
+</html>

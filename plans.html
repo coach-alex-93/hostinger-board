@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plans · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav">
+      <a href="hub.html">Season</a>
+      <a href="periodization.html">Periodization</a>
+      <a href="planner.html">Session planner</a>
+      <a href="kpi.html">KPIs</a>
+      <a href="review.html">Review</a>
+      <a href="idp.html">IDP</a>
+      <a href="depth.html">Depth chart</a>
+      <a href="lists.html">Lists</a>
+      <a href="plans.html" aria-current="page">Plans</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap narrow">
+
+  <h1 style="margin-bottom:6px">Plans</h1>
+  <p class="hint" style="max-width:64ch;margin-bottom:22px">
+    A plan is a calendar: a date range, the days you train, and whatever fixtures you have. Everything else in
+    Session Board hangs off it. The two fall 2026 squads ship built in and cannot be edited, but you can copy
+    either one and change the copy, or start from an empty calendar.
+  </p>
+
+  <section class="card">
+    <div class="card-hd"><h2>Your plans</h2></div>
+    <div class="card-bd"><div id="planList"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2 id="formTitle">New plan</h2>
+      <p class="hint" id="formHint">Start from an empty calendar.</p>
+    </div>
+    <div class="card-bd">
+      <div class="grid g2">
+        <label class="f span-all"><span>Plan name</span><input type="text" id="p_label" placeholder="U15 Girls, spring 2027"></label>
+        <label class="f"><span>Season starts</span><input type="date" id="p_start"></label>
+        <label class="f"><span>Season ends</span><input type="date" id="p_end"></label>
+      </div>
+
+      <p class="eyebrow" style="margin:18px 0 8px">Training days and length</p>
+      <div class="grid g4" id="trainDays"></div>
+      <p class="hint" style="margin-top:8px">Leave a day blank to make it a rest day. Minutes drive the load totals in the planner.</p>
+
+      <p class="eyebrow" style="margin:22px 0 8px">Game length</p>
+      <div class="grid g4">
+        <label class="f"><span>Default</span><input type="text" id="p_gameDur" placeholder="2x45"></label>
+        <label class="f"><span>Game length (min)</span><input type="number" id="p_gameLength" class="num" placeholder="80"></label>
+        <label class="f"><span>Needs volume under</span><input type="number" id="p_loadLow" class="num" placeholder="auto"></label>
+        <label class="f"><span>Manage load over</span><input type="number" id="p_loadHigh" class="num" placeholder="auto"></label>
+        <p class="hint span-all" id="loadNote"></p>
+      </div>
+
+      <p class="eyebrow" style="margin:22px 0 8px">Blocks</p>
+      <div id="blocks"></div>
+      <div class="btnrow" style="margin-top:8px">
+        <button class="btn ghost sm" id="btnAddBlock">Add a block</button>
+        <button class="btn ghost sm" id="btnEvenBlocks">Split the season into four</button>
+      </div>
+      <p class="hint" style="margin-top:8px">Blocks band the plan and group the export. A plan with no blocks still works.</p>
+
+      <p class="eyebrow" style="margin:22px 0 8px">Fixtures</p>
+      <div id="fixSummary" class="hint" style="margin-bottom:8px"></div>
+      <div class="btnrow">
+        <button class="btn ghost sm" id="btnFixCsv">Import fixtures from CSV</button>
+        <button class="btn ghost sm" id="btnFixClear">Remove all fixtures</button>
+      </div>
+      <p class="hint" style="margin-top:8px">
+        Columns read: Date, Team, Home/Away, Opponent, Location, Field, Kickoff, Notes. Dates can be
+        <code style="font-family:var(--mono)">12-Sep</code>, <code style="font-family:var(--mono)">2026-09-12</code>
+        or <code style="font-family:var(--mono)">9/12/2026</code>. You can also add games row by row on the plan itself.
+      </p>
+
+      <div class="btnrow" style="margin-top:22px;padding-top:16px;border-top:1px solid var(--chalk-3)">
+        <button class="btn turf" id="btnSavePlan">Save plan</button>
+        <button class="btn ghost" id="btnPreview">Preview the calendar</button>
+        <button class="btn ghost" id="btnCancel">Cancel</button>
+      </div>
+      <div id="preview" style="margin-top:16px"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Templates</h2>
+      <p class="hint">Move a plan between browsers, or hand it to another coach.</p>
+    </div>
+    <div class="card-bd">
+      <div class="btnrow">
+        <button class="btn ghost sm" id="btnExportTpl">Export a plan as a template</button>
+        <button class="btn ghost sm" id="btnImportTpl">Import a template</button>
+      </div>
+      <p class="hint" style="margin-top:10px">
+        A template holds the calendar and, if you choose, the principle sequencing you have set against it.
+        It never carries session content.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/plans.js"></script>
+</body>
+</html>

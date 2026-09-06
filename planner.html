@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session planner · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav">
+      <a href="hub.html">Season</a>
+      <a href="periodization.html">Periodization</a>
+      <a href="planner.html" aria-current="page">Session planner</a>
+      <a href="kpi.html">KPIs</a>
+      <a href="review.html">Review</a>
+      <a href="idp.html">IDP</a>
+      <a href="depth.html">Depth chart</a>
+      <a href="lists.html">Lists</a>
+      <a href="plans.html">Plans</a>
+    </nav>
+    <span class="chip off" id="statusChip" title="A session stays in draft until you submit it">Draft</span>
+    <span class="meta" id="saveState">Not saved yet</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Session planner</h1>
+    <button class="btn ghost sm" id="btnNew">New session</button>
+    <button class="btn ghost sm" id="btnOpen">Open</button>
+    <button class="btn ghost sm" id="btnImport">Import JSON</button>
+    <button class="btn ghost sm" id="btnExport">Export JSON</button>
+    <button class="btn ghost sm" id="btnPublish">Publish library file</button>
+    <a class="btn ghost sm" id="btnReview" href="review.html">Review</a>
+    <select id="printMode" style="width:auto" aria-label="Print layout">
+      <option value="one">One page</option>
+      <option value="full">Full detail</option>
+    </select>
+    <button class="btn ghost sm" id="btnPrint">Print / PDF</button>
+    <button class="btn ghost sm" id="btnSave">Save draft</button>
+    <button class="btn turf" id="btnSubmit">Submit session</button>
+  </div>
+
+  <!-- ============ identity ============ -->
+  <section class="card">
+    <div class="card-hd">
+      <h2>Session</h2>
+      <p class="hint" id="ctxLine">Pick a date and squad to pull the periodization row.</p>
+    </div>
+    <div class="card-bd">
+      <div class="grid g4">
+        <label class="f"><span>Date</span><input type="date" id="f_date"></label>
+        <label class="f"><span>Plan</span><select id="f_squad"></select></label>
+        <label class="f"><span>Coach</span><input type="text" id="f_coach"></label>
+        <label class="f"><span>Session duration (min)</span><input type="number" id="f_duration" class="num" min="15" max="180" step="5"></label>
+
+        <label class="f"><span>Field players</span><input type="number" id="f_fp" class="num" min="0" max="40"></label>
+        <label class="f"><span>Goalkeepers</span><input type="number" id="f_gk" class="num" min="0" max="6"></label>
+        <label class="f"><span>Cognitive load</span><select id="f_cogLoad"></select></label>
+        <label class="f"><span>Training load</span><select id="f_physLoad"></select></label>
+        <label class="f"><span>Location</span><select id="f_location"></select></label>
+        <label class="f"><span>Session method</span><select id="f_method"></select><button class="btn ghost sm no-print" id="addMethod" type="button" style="margin-top:5px">+ Add a method</button></label>
+        <label class="f"><span>Primary players</span><input type="text" id="f_primaryPlayers" placeholder="positions or names"></label>
+        <label class="f"><span>Secondary players</span><input type="text" id="f_secondaryPlayers"></label>
+
+
+      </div>
+
+      <div class="btnrow" style="margin-top:12px" id="ctxChips"></div>
+    </div>
+  </section>
+
+  <!-- ============ ribbon ============ -->
+  <section class="card">
+    <div class="card-hd">
+      <h2>Time on the ball</h2>
+      <p class="hint">Each block is drawn to scale against the booked session length.</p>
+    </div>
+    <div class="card-bd">
+      <div class="ribbon">
+        <div class="ribbon-track" id="ribbon"></div>
+        <div class="ribbon-scale" id="ribbonScale"></div>
+        <div class="ribbon-note" id="ribbonNote"></div>
+        <div class="stats" id="ribbonPct" style="margin-top:14px"></div>
+      </div>
+    </div>
+  </section>
+
+  <div>
+
+      <!-- ============ learning design ============ -->
+      <section class="card">
+        <div class="card-hd">
+          <h2>Learning design</h2>
+          <p class="hint">Moment sets the phase, phase sets the principle, principle sets the cue and its sub-principles.</p>
+        </div>
+        <div class="card-bd">
+          <div class="grid g2">
+            <div class="span-all" id="styleNote" style="background:var(--chalk-2);border-left:3px solid var(--turf);padding:10px 12px;border-radius:0 3px 3px 0"></div>
+            <p class="subhd span-all">The chain<small>game model &rsaquo; principle &rsaquo; strategy &rsaquo; identified game situation &rsaquo; instance</small></p>
+            <label class="f span-all"><span>Identified game situation</span>
+              <textarea id="f_igs" rows="2" placeholder="When we &hellip; we &hellip; because &hellip;"></textarea>
+              <select id="pick_igs" class="no-print" style="margin-top:5px"></select>
+              <p class="hint" style="margin-top:4px">One sentence naming what happens now and why. This is the sentence the instance has to make visible.</p></label>
+
+
+            <label class="f"><span>Moment</span><select id="f_moment"></select></label>
+            <label class="f"><span>Phase</span><select id="f_phase"></select></label>
+            <label class="f"><span>Principle</span><select id="f_principleCode"></select></label>
+
+            <div class="span-all">
+              <span class="eyebrow">Sub-principles to work on</span>
+              <div class="subs" id="subsBox"><p class="hint" style="margin:0">Choose a principle to list its sub-principles.</p></div>
+              <p class="hint" style="margin-top:5px">Chosen before the session: what you intend to work on. What actually got worked is recorded in the review.</p>
+            </div>
+
+            <label class="f"><span>Cycle objective</span><textarea id="f_cycleObj" rows="2"></textarea>
+              <select id="pick_cycleObj" class="no-print" style="margin-top:5px"></select></label>
+            <label class="f"><span>Level of learning</span><select id="f_level"></select>
+              <p class="hint" style="margin-top:4px" id="levelHint"></p></label>
+
+            <p class="subhd span-all">What we want<small>intentions and objectives overlap; keep the one you use and remove the other</small></p>
+            <label class="f span-all"><span>Team intentions</span><textarea id="f_focus" rows="3" placeholder="Pick from the list, or write your own"></textarea>
+              <select id="pick_intent"></select></label>
+            <label class="f span-all"><span>Training objectives</span><textarea id="f_objectives" rows="3"></textarea>
+              <select id="pick_obj" class="no-print" style="margin-top:5px"></select></label>
+
+
+            <p class="subhd span-all">How I will coach it<small>strategy is what we do about the situation; the learning plan is how they learn it</small></p>
+            <label class="f"><span>Strategy</span><textarea id="f_strategy" rows="3" placeholder="Penetrate behind the opposition backline"></textarea><select id="pick_strategy" class="no-print" style="margin-top:5px"></select></label>
+            <label class="f"><span>Learning plan</span><textarea id="f_learningPlan" rows="3"></textarea><select id="pick_learningPlan" class="no-print" style="margin-top:5px"></select></label>
+            </div>
+
+            <p class="subhd span-all">Shape and specific roles<small>both teams, and the detail that makes the topic show up</small></p>
+            <div class="span-all">
+<div class="grid g2">
+            <label class="f"><span>In possession shape</span><input type="text" id="f_shapeIn" placeholder="3-2-5"></label>
+            <label class="f"><span>Out of possession shape</span><input type="text" id="f_shapeOut" placeholder="4-4-2"></label>
+            <label class="f"><span>In possession intention</span><textarea id="f_intentIn" rows="3" placeholder="What we are trying to make happen with the ball"></textarea></label>
+            <label class="f"><span>Out of possession intention</span><textarea id="f_intentOut" rows="3" placeholder="Protect the center when the ball travels wide"></textarea></label>
+            <label class="f span-all"><span>Specific assignments, by number</span>
+              <textarea id="f_assign" rows="4" placeholder="3 presses 7 · 11 presses 2 · 9 covers 6 from receiving"></textarea></label>
+          </div>
+
+          <p class="eyebrow" style="margin:18px 0 8px">Key players</p>
+          <div id="keyBox"></div>
+          <div class="btnrow no-print" style="margin-top:8px">
+            <button class="btn ghost sm" id="btnAddKey">+ Add a key player</button>
+            <span class="hint">A number is enough. Add a name and it links to that player's IDP and KPI record.</span>
+          </div>
+            </div>
+
+            <p class="subhd span-all">What it looks like<small>the observable version of everything above</small></p>
+            <div class="span-all fieldblock">
+              <span class="eyebrow">Player actions</span>
+              <p class="hint" style="margin:0 0 8px">What you expect to see them do. Tick them here and they are the desired behaviors: offensive, defensive and transition, split by side of the ball.</p>
+              <div id="paBox"></div>
+              <p class="hint" style="margin-top:6px" id="paHint"></p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ the instance ============ -->
+      <section class="card">
+        <div class="card-hd">
+          <h2>Instance to identify</h2>
+          <p class="hint">The observable references that tell you the moment is present.</p>
+          <div class="btnrow" style="margin-left:auto">
+            <button class="btn ghost sm" id="btnInstLib">Start from an example</button>
+            <button class="btn ghost sm" id="btnInstSave">Keep this one</button>
+          </div>
+        </div>
+        <div class="card-bd">
+          <label class="f"><span>Name the instance</span>
+            <input type="text" id="f_instanceName" placeholder="The through ball behind the backline"></label>
+          <p class="eyebrow" style="margin:16px 0 6px">Components</p>
+          <div id="components"></div>
+          <div class="btnrow no-print" style="margin-top:8px">
+            <button class="btn ghost sm" id="btnAddComp">+ Add a component</button>
+            <span class="hint">Observable actions and conditions only. There is no set number.</span>
+          </div>
+          <div id="instanceCheck" style="margin-top:16px"></div>
+        </div>
+      </section>
+
+      <!-- ============ layers ============ -->
+      <!-- ============ success criteria ============ -->
+      <section class="card">
+        <div class="card-hd">
+          <h2>Success criteria</h2>
+          <p class="hint">What would make this session a success, decided before it runs.</p>
+        </div>
+        <div class="card-bd">
+          <div id="kpiBox"></div>
+          <div class="btnrow no-print" style="margin-top:12px">
+            <select id="kpiPick" style="width:auto;max-width:360px"></select>
+            <a class="btn ghost sm" href="kpi.html">Manage KPIs</a>
+            <a class="btn ghost sm" id="btnTally" href="kpi.html">Open the tally sheet</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ readiness ============ -->
+      <section class="card">
+        <div class="card-hd">
+          <h2>Player readiness</h2>
+          <p class="hint">Poll on arrival. The gate below is advisory, not automatic.</p>
+        </div>
+        <div class="card-bd">
+          <div class="grid g4" id="readyBox"></div>
+          <div id="readyOut" style="margin-top:14px"></div>
+          <label class="f" style="margin-top:12px"><span>Who is missing, and why</span>
+            <textarea id="f_availability" rows="2" placeholder="absences, late arrivals, restricted"></textarea></label>
+        </div>
+      </section>
+
+      <!-- ============ activities ============ -->
+      <section class="card">
+        <div class="card-hd">
+          <h2>Activities</h2>
+          <p class="hint" style="margin-left:auto">Three activities, numbered. Remove any you do not run.</p>
+        </div>
+        <div class="card-bd"><div id="acts"></div>
+          <div class="no-print" id="orphanDia"></div>
+          <div class="btnrow no-print" id="addSlots" style="margin-top:10px"></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- ============ diagram editor ============ -->
+  <div class="modal no-print" id="boardModal" hidden>
+    <div class="modal-panel">
+      <div class="modal-hd">
+        <h2 id="boardTitle">Activity diagram</h2>
+        <div class="btnrow">
+          <button class="btn ghost" id="boardCancel">Cancel</button>
+          <button class="btn insert" id="boardInsert">Insert into plan</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <aside class="rail" id="rail"></aside>
+        <div class="stage"><canvas class="board" id="board" width="620" height="600" aria-label="Tactics board"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.sessions.js"></script>
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/library.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/board.js"></script>
+<script src="js/boardrail.js"></script>
+<script src="js/planner.js"></script>
+</body>
+</html>

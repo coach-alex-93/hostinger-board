@@ -1,0 +1,21 @@
+# The landing page is public. Everything behind it holds coaching and player data.
+User-agent: *
+Allow: /$
+Allow: /index.html
+Disallow: /hub.html
+Disallow: /planner.html
+Disallow: /periodization.html
+Disallow: /idp.html
+Disallow: /depth.html
+Disallow: /kpi.html
+Disallow: /review.html
+Disallow: /lineups.html
+Disallow: /scout.html
+Disallow: /analysis.html
+Disallow: /board.html
+Disallow: /gallery.html
+Disallow: /library.html
+Disallow: /lists.html
+Disallow: /plans.html
+Disallow: /model.html
+Disallow: /seed.json

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scouting · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="topbar no-print"><div class="topbar-in">
+  <a class="wordmark" href="hub.html" aria-label="Hub"><span class="initials">AE</span></a>
+  <nav class="nav"></nav><span class="meta" id="saveState"></span>
+</div></header>
+
+<main class="wrap">
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Scouting</h1>
+    <select id="gameSel" style="width:auto;max-width:300px" aria-label="Game"></select>
+    <button class="btn ghost sm" id="btnNew">New game</button>
+    <button class="btn ghost sm" id="btnDel">Delete</button>
+    <button class="btn ghost sm" id="btnCsv">Export</button>
+    <button class="btn turf" id="btnSave">Save</button>
+  </div>
+
+  <p class="hint" style="max-width:74ch;margin-bottom:18px">
+    Count a whole game, one tap per event. Enough games at the same level and the counts become a
+    benchmark you can set a target against, instead of an impression of what good looks like.
+  </p>
+
+  <section class="card">
+    <div class="card-hd"><h2>The game</h2></div>
+    <div class="card-bd">
+      <div class="grid g4">
+        <label class="f"><span>Date</span><input type="date" id="f_date"></label>
+        <label class="f"><span>Team A</span><input type="text" id="f_teamA" placeholder="the side you are watching"></label>
+        <label class="f"><span>Team B</span><input type="text" id="f_teamB"></label>
+        <label class="f"><span>Level</span><input type="text" id="f_level" placeholder="U15 ECNL" list="levelList">
+          <datalist id="levelList"></datalist></label>
+        <label class="f"><span>Competition</span><input type="text" id="f_competition"></label>
+        <label class="f"><span>Length (min)</span><input type="number" id="f_length" class="num"></label>
+        <label class="f span2"><span>Video or source</span><input type="text" id="f_video"></label>
+        <label class="f span-all"><span>Notes</span><textarea id="f_note" rows="2"></textarea></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Counting</h2>
+      <p class="hint">Tick the actions you are counting, then tap as they happen.</p>
+    </div>
+    <div class="card-bd">
+      <div class="ivclock" id="clock"></div>
+      <div class="btnrow" style="margin:12px 0">
+        <div class="seg" id="whoSeg" style="max-width:320px"></div>
+        <button class="btn ghost sm" id="btnPickActions">Choose what to count</button>
+        <button class="btn warn sm" id="btnUndo">Undo the last tap</button>
+      </div>
+      <div class="grid g2" style="margin-bottom:14px">
+        <div id="zonePicker"></div>
+        <div>
+          <p class="eyebrow" style="margin:0 0 6px">Key players</p>
+          <div id="keys"></div>
+        </div>
+      </div>
+      <div class="btnrow" id="keyChips" style="margin-bottom:12px"></div>
+      <div class="btnrow" style="margin:0 0 12px">
+        <div class="seg" id="zoneSeg" style="max-width:420px"></div>
+        <div class="seg" id="laneSeg" style="max-width:340px"></div>
+      </div>
+      <div id="pads"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Key players</h2>
+      <div class="btnrow" style="margin-left:auto">
+        <button class="btn ghost sm" id="btnAddKey">+ Add a player</button>
+      </div>
+    </div>
+    <div class="card-bd"><div id="keys"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>This game</h2></div>
+    <div class="card-bd"><div id="thisGame"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Benchmarks</h2>
+      <div class="btnrow" style="margin-left:auto">
+        <select id="benchLevel" style="width:auto" aria-label="Level"></select>
+      </div>
+    </div>
+    <div class="card-bd"><div id="bench"></div></div>
+  </section>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/scout.js"></script>
+<script src="js/scout-page.js"></script>
+</body>
+</html>

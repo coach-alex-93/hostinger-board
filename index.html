@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session Board — plan, coach, review</title>
+<meta name="description" content="A planning and analysis tool for football coaches. Session plans, periodization, player development, KPIs and video analysis. Your data stays on your device.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="landing">
+
+<header class="topbar no-print"><div class="topbar-in">
+  <a class="wordmark" href="index.html" aria-label="Session Board"><span class="initials">SB</span></a>
+  <nav class="nav">
+    <a href="#what">What it does</a>
+    <a href="#chain">How it fits together</a>
+    <a href="#privacy">Your data</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+  <div class="btnrow" style="margin-left:auto">
+    <a class="btn ghost sm" href="account.html">Sign in</a>
+    <a class="btn turf sm" href="hub.html">Open the app</a>
+  </div>
+</div></header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap narrow">
+      <p class="eyebrow">For coaches who write it down</p>
+      <h1>The session plan, the season, and the review that connects them.</h1>
+      <p class="lede">
+        Most tools give you a session template. This gives you the chain: a game model at the top,
+        a periodized season underneath, a plan for Tuesday that inherits from both, and a review that
+        tells you whether any of it happened.
+      </p>
+      <div class="btnrow" style="margin-top:24px">
+        <button class="btn turf" id="btnTry">Try the session planner</button>
+        <a class="btn ghost" href="#what">See what it does</a>
+      </div>
+      <p class="hint" style="margin-top:14px">
+        Opens a worked session for a made-up squad. Nothing to install, nothing to sign up for,
+        and nothing you do in it is kept.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap" id="what">
+    <p class="eyebrow">What it does</p>
+    <h2 class="secttl">Eight things, and they all read from each other</h2>
+    <div class="lgrid">
+      <div class="lcard">
+        <b>Game model</b>
+        <p>Identity, style of play by moment, formations with diagrams, principles and sub-principles, and the role profile each position owes. Everything else reads from it.</p>
+      </div>
+      <div class="lcard">
+        <b>Periodization</b>
+        <p>Every training day and fixture in the season, with blocks, game day, session type and load. Cancel a day, record who covered it, and see how the week landed.</p>
+      </div>
+      <div class="lcard">
+        <b>Session planner</b>
+        <p>The identified game situation, the instance you are trying to see, its components and filters, the shape both teams take, and activities with diagrams. Prints to one page or to full detail.</p>
+      </div>
+      <div class="lcard">
+        <b>Player development</b>
+        <p>A development sheet per player built on benchmark categories and tiers, a depth chart that works out age and birth-year band from a date of birth, and cycles that aim a block at named players.</p>
+      </div>
+      <div class="lcard">
+        <b>KPIs</b>
+        <p>Define what success looks like, set the target as successes out of opportunities, tally it on your phone at the field, and see which players are actually succeeding.</p>
+      </div>
+      <div class="lcard">
+        <b>Video and analysis</b>
+        <p>Freeze a frame from a clip and draw on it. Classify actions with outcomes and zones. Count a whole game and turn it into a benchmark you can set a target against.</p>
+      </div>
+      <div class="lcard">
+        <b>Team sheets and minutes</b>
+        <p>Starting XI and substitutes against each fixture, minutes worked out rather than typed, and a training week that asks something different of the player who played ninety and the one who played none.</p>
+      </div>
+      <div class="lcard">
+        <b>Coach observation</b>
+        <p>Watching another coach, with a timed intervention log: who, when, how long, and where. It counts the interventions, the stopped play and how many different players got coached.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="chain">
+    <div class="wrap narrow">
+      <p class="eyebrow">How it fits together</p>
+      <h2 class="secttl">One chain, from the model to the pitch and back</h2>
+      <ol class="chain">
+        <li><b>Game model</b><span>What you want the team to look like, moment by moment.</span></li>
+        <li><b>Principle</b><span>The idea you are coaching, with its sub-principles underneath.</span></li>
+        <li><b>Strategy</b><span>What you are going to do about it.</span></li>
+        <li><b>Identified game situation</b><span>One sentence: when we do this, that happens, because of this.</span></li>
+        <li><b>Instance</b><span>The observable components that tell you the moment is on the pitch.</span></li>
+        <li><b>Session</b><span>Activities built to make that instance appear, with the numbers the game size asks for.</span></li>
+        <li><b>Review</b><span>Did it appear, did the players succeed, and was the gap planning or delivery.</span></li>
+      </ol>
+      <p class="hint" style="margin-top:16px">
+        Change a principle and the planner, the periodization grid, the KPIs and the role profiles all follow it.
+        Nothing is typed twice.
+      </p>
+    </div>
+  </section>
+
+  <section class="wrap narrow" id="privacy">
+    <p class="eyebrow">Your data</p>
+    <h2 class="secttl">It stays on your device. That is the design, not a limitation.</h2>
+    <p class="lede">
+      Player names, dates of birth and video never leave the machine you typed them on. There is no
+      server holding your roster, because there is no server. It is why there is nothing to breach.
+    </p>
+    <div class="lgrid two">
+      <div class="lcard"><b>Nothing is uploaded</b><p>Including clips loaded onto the analysis board. They are read from the device and played locally.</p></div>
+      <div class="lcard"><b>You keep the backup</b><p>One file holds everything. Move it between browsers, devices or hosts. No lock-in, no export fee.</p></div>
+      <div class="lcard"><b>Works offline</b><p>At the field, on a phone, with no signal. It is not waiting on anything.</p></div>
+      <div class="lcard"><b>Yours to keep</b><p>The whole thing is files. If this disappeared tomorrow, your copy would still open.</p></div>
+    </div>
+    <p class="hint" style="margin-top:16px">
+      The trade is that clearing your browser clears your work, so the backup matters. The app says so
+      rather than hiding it.
+    </p>
+  </section>
+
+  <section class="band" id="pricing">
+    <div class="wrap narrow">
+      <p class="eyebrow">Pricing</p>
+      <h2 class="secttl">Straightforward</h2>
+      <div class="lgrid two">
+        <div class="lcard price">
+          <b>Try it</b>
+          <p class="amount">£0</p>
+          <p>A worked session on a made-up squad. Everything works; nothing is kept. No account, no card.</p>
+          <button class="btn ghost" id="btnTry2">Try the session planner</button>
+        </div>
+        <div class="lcard price on">
+          <b>Coach</b>
+          <p class="amount">Coming soon</p>
+          <p>Video analysis, scouting benchmarks, team sheets and minutes, coach observation, and the activity library across teams.</p>
+          <a class="btn turf" href="account.html">Register interest</a>
+        </div>
+      </div>
+      <p class="hint" style="margin-top:16px">
+        Pricing is not set yet. If you want to be told when it is, leave an address and that is the only
+        thing it will be used for.
+      </p>
+    </div>
+  </section>
+
+  <footer class="lfoot">
+    <div class="wrap narrow">
+      <p><b>Session Board</b></p>
+      <p class="hint">A planning and analysis tool for football coaches. Built by a coach, on the pitch, for the season it is actually being used in.</p>
+      <p class="hint" style="margin-top:10px">
+        <a href="hub.html">Open the app</a> &nbsp;·&nbsp;
+        <a href="account.html">Sign in</a>
+      </p>
+    </div>
+  </footer>
+
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/demo.js"></script>
+<script>
+(function () {
+  function go() {
+    if (window.Demo.on() || confirm('Open the demo?\n\nIt loads a made-up squad and one worked session into this browser. Nothing real, and you can clear it in one click.')) {
+      window.Demo.start(function () { location.href = 'planner.html'; });
+    }
+  }
+  ['btnTry', 'btnTry2'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b) b.addEventListener('click', go);
+  });
+})();
+</script>
+</body>
+</html>

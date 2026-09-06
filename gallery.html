@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Coach observation · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav"></nav>
+    <span class="meta" id="saveState"></span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Coach observation</h1>
+    <select id="obsSel" style="width:auto;max-width:320px" aria-label="Observation"></select>
+    <button class="btn ghost sm" id="btnNew">New sheet</button>
+    <button class="btn ghost sm" id="btnDelete">Delete</button>
+    <button class="btn ghost sm" id="btnCsv">Export CSV</button>
+    <button class="btn ghost sm" id="btnPrint">Print / PDF</button>
+    <button class="btn turf" id="btnSave">Save sheet</button>
+  </div>
+
+  <p class="hint" style="max-width:70ch;margin-bottom:18px">
+    For watching another coach, in the club or on the course. Record what they did and what it did to
+    the players, then write down what you are taking into your own coaching.
+  </p>
+
+  <section class="card">
+    <div class="card-hd"><h2>Sheet</h2></div>
+    <div class="card-bd">
+      <div class="grid g4">
+        <label class="f"><span>Coach observed</span><input type="text" id="f_coachObserved"></label>
+        <label class="f"><span>Observer</span><input type="text" id="f_observer"></label>
+        <label class="f"><span>Date</span><input type="date" id="f_date"></label>
+        <label class="f"><span>Age group</span><input type="text" id="f_ageGroup"></label>
+        <label class="f"><span>Field / station</span><input type="text" id="f_field"></label>
+        <label class="f"><span>Setting</span><select id="f_setting">
+          <option value="">-</option><option>Club</option><option>Course</option><option>Other</option>
+        </select></label>
+        <label class="f span2"><span>If this was one of my own sessions, link it</span><select id="f_link"></select></label>
+      </div>
+    </div>
+  </section>
+
+  <div class="two-col">
+    <div>
+      <section class="card">
+        <div class="card-hd">
+          <h2>Teaching plan and interactions</h2>
+          <p class="hint">Tick what the design showed.</p>
+        </div>
+        <div class="card-bd">
+          <div id="ticks"></div>
+          <label class="f" style="margin-top:14px"><span>Evidence (why were these ticked?)</span>
+            <textarea id="f_evidence" rows="4"></textarea></label>
+          <div class="grid" style="gap:12px;margin-top:12px" id="context"></div>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <section class="card">
+        <div class="card-hd"><h2>Observation</h2></div>
+        <div class="card-bd">
+          <label class="f"><span>Player behavior observed in the instance(s) identified</span>
+            <textarea id="f_behavior" rows="7"></textarea></label>
+          <label class="f" style="margin-top:12px"><span>How the coach interacted with and influenced the player's behavior</span>
+            <textarea id="f_coaching" rows="7"></textarea></label>
+          <label class="f" style="margin-top:12px"><span>How activity design influenced the player's behavior, and the coach's ability to impact it</span>
+            <textarea id="f_design" rows="7"></textarea></label>
+          <label class="f" style="margin-top:12px"><span>What I am taking into my own coaching</span>
+            <textarea id="f_takeaway" rows="4" placeholder="The bit worth stealing, and where it would fit"></textarea></label>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Timed coaching interventions</h2>
+      <p class="hint">Start the clock, tap once each time the coach steps in, fill the detail after.</p>
+    </div>
+    <div class="card-bd"><div id="ivlog"></div></div>
+  </section>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/intervlog.js"></script>
+<script src="js/gallery.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body class="landing">
+
+<header class="topbar no-print"><div class="topbar-in">
+  <a class="wordmark" href="index.html" aria-label="Session Board"><span class="initials">SB</span></a>
+  <nav class="nav"><a href="index.html">Home</a><a href="hub.html">Open the app</a></nav>
+</div></header>
+
+<main class="wrap narrow" style="padding-top:40px">
+
+  <div class="secbar" style="border-color:var(--flag-deep);background:#FFFDF7">
+    <span><strong>This page is a front end only.</strong> It does not check anything, and it does not
+    protect anything. It is here so the shape of the product is visible while the server side is decided.</span>
+  </div>
+
+  <p class="eyebrow">Account</p>
+  <h1 style="font-size:34px;margin:6px 0 18px">Sign in</h1>
+
+  <section class="card">
+    <div class="card-hd"><h2>Sign in</h2></div>
+    <div class="card-bd">
+      <div class="grid g2">
+        <label class="f span-all"><span>Email</span><input type="email" id="f_email" autocomplete="email"></label>
+        <label class="f span-all"><span>Password</span><input type="password" id="f_pass" autocomplete="current-password"></label>
+      </div>
+      <div class="btnrow" style="margin-top:14px">
+        <button class="btn turf" id="btnSignIn">Sign in</button>
+        <button class="btn ghost" id="btnRegister">Create an account</button>
+        <span class="hint" id="authNote"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Register interest</h2>
+      <p class="hint">Until there is a subscription to sell, this is the honest version.</p>
+    </div>
+    <div class="card-bd">
+      <label class="f"><span>Email</span><input type="email" id="f_interest" placeholder="you@club.com"></label>
+      <label class="f" style="margin-top:10px"><span>What you coach</span>
+        <input type="text" id="f_role" placeholder="U13 and U19 girls, N1 South"></label>
+      <div class="btnrow" style="margin-top:14px">
+        <button class="btn turf" id="btnInterest">Tell me when it launches</button>
+      </div>
+      <p class="hint" style="margin-top:10px" id="interestNote"></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>What a real sign-in needs</h2></div>
+    <div class="card-bd" id="reality"></div>
+  </section>
+
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/account.js"></script>
+</body>
+</html>

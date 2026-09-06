@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Game analysis · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<header class="topbar no-print"><div class="topbar-in">
+  <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+  <nav class="nav"></nav><span class="meta" id="saveState"></span>
+</div></header>
+
+<main class="wrap">
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Game analysis</h1>
+    <select id="boardSel" style="width:auto;max-width:300px" aria-label="Board"></select>
+    <button class="btn ghost sm" id="btnNew">New board</button>
+    <button class="btn ghost sm" id="btnDup">Duplicate</button>
+    <button class="btn ghost sm" id="btnPng">Save as PNG</button>
+    <button class="btn ghost sm" id="btnDel">Delete</button>
+    <button class="btn turf" id="btnSave">Save board</button>
+  </div>
+
+  <p class="hint" style="max-width:72ch;margin-bottom:18px">Work through a clip: freeze a moment, draw on it, and classify what happened. Every action carries an outcome, a player, a principle and the zone it ended in, so a run of clips becomes a distribution rather than an impression.</p>
+
+  <div class="two-col">
+    <div>
+<section class="card">
+        <div class="card-hd"><h2>Details</h2></div>
+        <div class="card-bd">
+          <div class="grid g4">
+            <label class="f span2"><span>Title</span><input type="text" id="f_title" placeholder="Third goal, build from the goal kick"></label>
+            <label class="f"><span>Date</span><input type="date" id="f_date"></label>
+            <label class="f"><span>Squad</span><select id="f_squad"></select></label>
+            <label class="f span-all"><span>Notes</span><textarea id="f_note" rows="3"></textarea></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-hd">
+          <h2>Clip and verdict</h2>
+          <p class="hint">Where the moment came from, and what it says about the model.</p>
+        </div>
+        <div class="card-bd">
+          <div class="grid g4">
+            <label class="f span2"><span>Video or clip link</span><input type="text" id="f_video" placeholder="Veo, Hudl or a file name"></label>
+            <label class="f"><span>Timestamp</span><input type="text" id="f_stamp" placeholder="34:12" class="num"></label>
+            <label class="f"><span>Opponent or session</span><input type="text" id="f_context"></label>
+            <label class="f"><span>Moment</span><select id="f_moment"></select></label>
+            <label class="f"><span>Phase</span><select id="f_phase"></select></label>
+            <label class="f span2"><span>Principle</span><select id="f_principle"></select></label>
+            <label class="f span-all"><span>Verdict</span><select id="f_verdict">
+              <option value="">-</option>
+              <option>Model executed</option>
+              <option>Model attempted, execution failed</option>
+              <option>Model not recognized</option>
+              <option>Model wrong for the picture</option>
+              <option>Good outcome, off model</option>
+            </select></label>
+          </div>
+        </div>
+      </section>
+<section class="card">
+        <div class="card-hd">
+          <h2 id="bTitle">Board</h2>
+          <div class="btnrow" style="margin-left:auto">
+            <button class="btn ghost sm" id="btnXI">Place an XI</button>
+            <button class="btn ghost sm" id="btnNames">Names on shirts</button>
+            <button class="btn ghost sm" id="btnXI">Place a team</button>
+            <button class="btn ghost sm" id="btnClipMode">Draw on a clip</button>
+            <button class="btn ghost sm" id="btnPitchMode">Back to the pitch</button>
+          </div>
+        </div>
+        <div class="card-bd">
+          <div id="clipPane" hidden style="margin-bottom:12px"></div>
+          <div class="board-wrap"><canvas class="board" id="board" width="620" height="600" aria-label="Tactics board"></canvas></div>
+        </div>
+      </section>
+<section class="card">
+        <div class="card-hd">
+          <h2>Actions</h2>
+          <p class="hint">Every line you draw can be classified. Green is a success, red is not.</p>
+        </div>
+        <div class="card-bd">
+          <div id="actSum"></div>
+          <div id="actList" style="margin-top:12px"></div>
+        </div>
+      </section>
+    </div>
+
+    <div>
+<section class="card sticky">
+        <div class="card-hd"><h2>Tools</h2></div>
+        <div class="card-bd" style="padding:0"><aside class="rail" id="rail" style="border-right:0;max-height:74vh"></aside></div>
+      </section>
+    </div>
+  </div>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/board.js"></script>
+<script src="js/boardrail.js"></script>
+<script src="js/clip.js"></script>
+<script src="js/boardpage.js"></script>
+</body>
+</html>

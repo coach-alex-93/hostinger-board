@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session review · Session Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+
+<header class="topbar no-print">
+  <div class="topbar-in">
+    <a class="wordmark" href="hub.html" aria-label="Season overview"><span class="initials">AE</span></a>
+    <nav class="nav">
+      <a href="hub.html">Season</a>
+      <a href="periodization.html">Periodization</a>
+      <a href="planner.html">Session planner</a>
+      <a href="kpi.html">KPIs</a>
+      <a href="review.html" aria-current="page">Review</a>
+      <a href="idp.html">IDP</a>
+      <a href="depth.html">Depth chart</a>
+      <a href="lists.html">Lists</a>
+      <a href="plans.html">Plans</a>
+    </nav>
+    <span class="meta" id="saveState"></span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="btnrow no-print" style="margin-bottom:14px">
+    <h1 style="margin-right:auto">Session preview and review</h1>
+    <select id="sessionSel" style="width:auto;max-width:340px" aria-label="Session"></select>
+    <a class="btn ghost sm" id="btnOpenPlan" href="planner.html">Open the plan</a>
+    <label class="hint" style="display:flex;align-items:center;gap:6px">
+      <input type="checkbox" id="callToggle" style="width:auto"> Alignment call
+    </label>
+    <button class="btn ghost sm" id="btnCsv">Export CSV</button>
+    <button class="btn ghost sm" id="btnPrint">Print / PDF</button>
+    <button class="btn turf" id="btnSave">Save review</button>
+  </div>
+
+  <p class="hint" style="max-width:70ch;margin-bottom:18px">
+    Identify (preview) → Respond (session) → Measure (review). The planned column fills itself from the
+    session you wrote, so the only typing here is what actually happened.
+  </p>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2 id="hdr">No session selected</h2>
+      <p class="hint" id="hdrMeta"></p>
+    </div>
+    <div class="card-bd">
+      <div class="grid g4" id="idBlock"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Training context</h2>
+      <p class="hint">Five elements, each planned against occurred.</p>
+    </div>
+    <div class="card-bd" style="padding:0"><div id="context"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>Player behavior</h2></div>
+    <div class="card-bd" style="padding:0"><div id="behavior"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd"><h2>Coach's influence on player behavior</h2></div>
+    <div class="card-bd" style="padding:0"><div id="coaching"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Timed coaching interventions</h2>
+      <p class="hint">Your own, logged live or written up after. Feeds the row above.</p>
+    </div>
+    <div class="card-bd"><div id="ivlog"></div></div>
+  </section>
+
+  <section class="card">
+    <div class="card-hd">
+      <h2>Competency focus for the development period</h2>
+      <p class="hint" id="periodLabel"></p>
+    </div>
+    <div class="card-bd">
+      <label class="f"><span>What you are working on as a coach, across this period</span>
+        <textarea id="competency" rows="4"></textarea></label>
+      <p class="hint" style="margin-top:8px">Carried forward from your last review, so it stays the same thread rather than restarting each session.</p>
+    </div>
+  </section>
+
+  <section class="card no-print">
+    <div class="card-hd">
+      <h2>Across your reviews</h2>
+      <p class="hint">Where plan and reality keep parting company.</p>
+    </div>
+    <div class="card-bd"><div id="aggregate"></div></div>
+  </section>
+
+  <div id="printOnly"></div>
+</main>
+
+<script src="js/data.principles.js"></script>
+<script src="js/data.club.js"></script>
+<script src="js/data.instances.js"></script>
+<script src="js/data.style.js"></script>
+<script src="js/data.profiles.js"></script>
+<script src="js/data.season.js"></script>
+<script src="js/data.sessions.js"></script>
+<script src="js/model.js"></script>
+<script src="js/season.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/demo.js"></script>
+<script src="js/lineup.js"></script>
+<script src="js/autosave.js"></script>
+<script src="js/sections.js"></script>
+<script src="js/fields.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/lists.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/intervlog.js"></script>
+<script src="js/kpi.js"></script>
+<script src="js/intervlog.js"></script>
+<script src="js/review.js"></script>
+</body>
+</html>
